@@ -1,1 +1,1 @@
-# rivals
+# rivals [![Build Status](https://dev.azure.com/adigunpalmer333/rivals/_apis/build/status/apalmer.rivals)](https://dev.azure.com/adigunpalmer333/rivals/_build/latest?definitionId=1)
