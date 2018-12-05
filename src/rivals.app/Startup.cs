@@ -34,9 +34,13 @@ namespace rivals.app
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            var prodConnectionString = Configuration.GetValue<String>("StrivingRivalsDefaultConnection");
+            var devConnectionString = Configuration.GetValue<String>("StrivingRivals:DefaultConnection");
+
+            var defaultConnectionString = prodConnectionString ?? devConnectionString;
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(defaultConnectionString));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
