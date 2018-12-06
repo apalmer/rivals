@@ -18,7 +18,7 @@ Vue.component('chat-input', {
     },
     methods: {
         sendMessage: function () {
-            root.relayMessage(this.chatMessage);
+            root.relayMessage('system', this.chatMessage);
         }
     },
     template: '<div class="chat-input"><input type="text"  v-model="chatMessage"></input><input type="button" value="Enter" v-on:click="sendMessage"></input></div>'
@@ -32,8 +32,23 @@ var root = new Vue({
         ]
     },
     methods: {
-        relayMessage: function (message) {
-            this.chat.push({ user: 'system', text: message });
+        recieveMessage: function (user, message) {
+            this.chat.push({ user: user, text: message });
+        },
+        relayMessage: function (user, message) {
+            connection.invoke("SendMessage", user, message).catch(function (err) {
+                return console.error(err.toString());
+            });
         }
     }
+});
+
+var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+connection.on("ReceiveMessage", function (user, message) {
+    root.recieveMessage(user, message);
+});
+
+connection.start().catch(function (err) {
+    return console.error(err.toString());
 });
