@@ -14,6 +14,8 @@ using rivals.app.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using rivals.app.Hubs;
+using rivals.persistence;
+using rivals.domain.Configuration;
 
 namespace rivals.app
 {
@@ -48,7 +50,12 @@ namespace rivals.app
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSignalR(); 
+            services.AddSignalR();
+
+            services.Configure<DatabaseSettings>(Configuration.GetSection("DocumentDB"));
+            services.AddOptions();
+
+            services.AddTransient<ISpikeRepo, SpikeRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
