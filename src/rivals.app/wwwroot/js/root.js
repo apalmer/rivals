@@ -36,19 +36,19 @@ var root = new Vue({
             this.chat.push({ user: user, text: message });
         },
         relayMessage: function (user, message) {
-            connection.invoke("SendMessage", user, message).catch(function (err) {
+            worldConnection.invoke("SendMessage", user, message).catch(function (err) {
                 return console.error(err.toString());
             });
         }
     }
 });
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+var worldConnection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-connection.on("ReceiveMessage", function (user, message) {
+worldConnection.on("ReceiveMessage", function (user, message) {
     root.recieveMessage(user, message);
 });
 
-connection.start().catch(function (err) {
+worldConnection.start().catch(function (err) {
     return console.error(err.toString());
 });

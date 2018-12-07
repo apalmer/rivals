@@ -7,13 +7,9 @@
 <h2>Index</h2>
 
 <div>
-    <h4>WorldModel</h4>
-    <hr />
-    <dl class="dl-horizontal"></dl>
-    <div id="root">
-        <chat-log v-bind:chat-history="chat">
-        </chat-log>
-        <chat-input></chat-input>
+    <div id="world">
+        <user-list v-bind:users="users">
+        </user-list>
     </div>
 </div>
 
@@ -37,5 +33,5 @@
                 integrity="sha384-arDqoUZHdj50mIYqKv5ykvr0yu1WaJbQDpl8SfVv/hhdieJjXVoG/bY6mm7Qyp5x">
         </script>
     </environment>
-    <script src="~/js/root.js" asp-append-version="true"></script>
+    <script src="~/js/world.js" asp-append-version="true"></script>
 }

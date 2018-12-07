@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using rivals.app.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SignalRChat.Hubs;
+using rivals.app.Hubs;
 
 namespace rivals.app
 {
@@ -74,6 +74,7 @@ namespace rivals.app
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chatHub");
+                routes.MapHub<WorldHub>("/worldHub");
             });
 
             app.UseMvc(routes =>
