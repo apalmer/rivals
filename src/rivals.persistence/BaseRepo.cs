@@ -9,8 +9,10 @@ namespace rivals.persistence
 {
     public abstract class BaseRepo
     {
-        DatabaseSettings DatabaseSettings { get; set; }
-        DocumentClient Client { get; set; }
+        private DatabaseSettings DatabaseSettings { get; set; }
+        protected DocumentClient Client { get; set; }
+        protected String DatabaseID { get; set; }
+        protected String CollectionID { get; set; }
 
         public BaseRepo(IOptions<DatabaseSettings> dbOptions)
         {
@@ -18,7 +20,10 @@ namespace rivals.persistence
             var endpoint = new Uri(DatabaseSettings.EndpointUrl);
             var passKey = DatabaseSettings.PassKey;
 
-            var client = new DocumentClient(endpoint, passKey);
+            DatabaseID = "StrivingRivalsDB";
+            CollectionID = "StrivingRivalsCollection";
+
+            Client = new DocumentClient(endpoint, passKey);
         }
     }
 }

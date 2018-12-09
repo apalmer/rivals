@@ -18,10 +18,10 @@ namespace rivals.app.Controllers
             Repository = repo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var model = new SpikeModel();
-            model.Items = Repository.GetSpikeItems();
+            model.Items = await Repository.GetSpikeItems();
             return View(model);
         }
     }

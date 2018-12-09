@@ -6,6 +6,7 @@ namespace rivals.domain
 {
     public abstract class Persistable
     {
+        public String ID { get; set; }
         public String EntityType { get; set; }
         public String Region { get; set; }
 

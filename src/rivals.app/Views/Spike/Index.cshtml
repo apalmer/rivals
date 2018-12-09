@@ -8,6 +8,28 @@
     <h2 class="display-4">Spike</h2>
     <hr />
     <dl class="dl-horizontal"></dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Region</th>
+                <th>EntityType</th>
+                <th>Datum</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var spikeItem in Model.Items)
+            {
+            <tr>
+                <td>@spikeItem.ID</td>
+                <td>@spikeItem.Region</td>
+                <td>@spikeItem.EntityType</td>
+                <td>@spikeItem.Datum</td>
+            </tr>
+            }
+            </tbody>
+    </table>
+    
 </div>
 
 <div>
