@@ -39,18 +39,16 @@ namespace rivals.app
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-     
-            var prodConnectionString = Configuration.GetValue<String>("StrivingRivalsDefaultConnection");
-            var devConnectionString = Configuration.GetValue<String>("DocumentDB:EndpointUrl");
 
-            var defaultConnectionString = prodConnectionString ?? devConnectionString;
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(defaultConnectionString));
-
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            services.AddIdentityWithDocumentDBStores(
+                dbOptions => {
+                    dbOptions.DocumentUrl = Configuration.GetValue<String>("DocumentDB:EndpointURL");
+                    dbOptions.DocumentKey = Configuration.GetValue<String>("DocumentDB:PassKey");
+                    dbOptions.DatabaseId = "StrivingRivalsDB";
+                    dbOptions.CollectionId = "StrivingRivalsCollection";
+                }
+            );
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSignalR();

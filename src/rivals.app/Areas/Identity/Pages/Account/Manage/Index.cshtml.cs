@@ -13,13 +13,13 @@ namespace rivals.app.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<Microsoft.AspNetCore.Identity.DocumentDB.IdentityUser> _userManager;
+        private readonly SignInManager<Microsoft.AspNetCore.Identity.DocumentDB.IdentityUser> _signInManager;
         private readonly IEmailSender _emailSender;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<Microsoft.AspNetCore.Identity.DocumentDB.IdentityUser> userManager,
+            SignInManager<Microsoft.AspNetCore.Identity.DocumentDB.IdentityUser> signInManager,
             IEmailSender emailSender)
         {
             _userManager = userManager;

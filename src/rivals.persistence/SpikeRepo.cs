@@ -71,8 +71,6 @@ namespace rivals.persistence
 
             try
             {
-                item.SetDefaultProperties();
-
                 var collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseID, CollectionID);
                 var documentResponse = await Client.CreateDocumentAsync(collectionUri, item);
 
@@ -121,8 +119,6 @@ namespace rivals.persistence
 
             try
             {
-                item.SetDefaultProperties();
-
                 var documentToUpdateUri = UriFactory.CreateDocumentUri(DatabaseID, CollectionID, item.ID);
 
                 ResourceResponse<Document> updatedDocumentResponse = await Client.ReplaceDocumentAsync(
