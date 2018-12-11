@@ -6,7 +6,7 @@ namespace rivals.domain.Configuration
 {
     public class DatabaseSettings
     {
-        public String EndpointUrl { get; set; }
-        public String PassKey { get; set; }
+        public String DatabaseID { get; set; }
+        public String CollectionID { get; set; }
     }
 }

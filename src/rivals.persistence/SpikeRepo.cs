@@ -19,7 +19,7 @@ namespace rivals.persistence
             {
                 var collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseID, CollectionID);
                 var documentQuery = Client.CreateDocumentQuery<SpikeItem>(collectionUri,
-                    $"SELECT * FROM StrivingRivalsCollection c",
+                    $"SELECT * FROM StrivingRivalsCollection c WHERE c.documentType = 'rivals.domain.SpikeItem'",
                     new FeedOptions()
                     {
                         EnableCrossPartitionQuery = true,
@@ -138,7 +138,7 @@ namespace rivals.persistence
             return updated;
         }
 
-        public SpikeRepo(IOptions<DatabaseSettings> dbOptions) : base(dbOptions)
+        public SpikeRepo(DocumentClient documentClient, IOptions<DatabaseSettings> dbOptions) : base(documentClient, dbOptions)
         {
         }
     }

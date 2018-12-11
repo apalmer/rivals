@@ -39,13 +39,20 @@ namespace rivals.app
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            
+            services.AddSingleton<DocumentClient>(new DocumentClient(
+                new Uri(Configuration.GetValue<String>("DocumentDB:EndpointURL")),
+                Configuration.GetValue<String>("DocumentDB:PassKey")
+                )
+            );
 
             services.AddIdentityWithDocumentDBStores(
-                dbOptions => {
+                dbOptions =>
+                {
                     dbOptions.DocumentUrl = Configuration.GetValue<String>("DocumentDB:EndpointURL");
                     dbOptions.DocumentKey = Configuration.GetValue<String>("DocumentDB:PassKey");
-                    dbOptions.DatabaseId = "StrivingRivalsDB";
-                    dbOptions.CollectionId = "StrivingRivalsCollection";
+                    dbOptions.DatabaseId = Configuration.GetValue<String>("DocumentDB:DatabaseID");
+                    dbOptions.CollectionId = Configuration.GetValue<String>("DocumentDB:CollectionID");
                 }
             );
             
