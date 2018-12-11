@@ -1,59 +1,37 @@
-﻿@model rivals.app.Models.SpikeModel
+﻿@model rivals.app.Models.SpikeCollectionModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h2 class="display-4">Spike</h2>
-    <hr />
-    <dl class="dl-horizontal"></dl>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Region</th>
-                <th>EntityType</th>
-                <th>Datum</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var spikeItem in Model.Items)
-            {
-            <tr>
-                <td>@spikeItem.ID</td>
-                <td>@spikeItem.Region</td>
-                <td>@spikeItem.EntityType</td>
-                <td>@spikeItem.Datum</td>
-            </tr>
-            }
-            </tbody>
-    </table>
-    
-</div>
+<h1>Index</h1>
 
-<div>
-</div>
-
-@section Scripts{
-
-    <environment include="Development">
-        <script src="~/lib/vue/vue.js"></script>
-        <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"
-                asp-fallback-src="~/lib/vue/vue.js"
-                asp-fallback-test="window.Vue"
-                crossorigin="anonymous"
-                integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=">
-        </script>
-        <script src="https://unpkg.com/@@aspnet/signalr@1.1.0/dist/browser/signalr.js"
-                asp-fallback-src="~/lib/aspnet/signalr/dist/browser/signalr.js"
-                asp-fallback-test="window.signalR"
-                crossorigin="anonymous"
-                integrity="sha384-arDqoUZHdj50mIYqKv5ykvr0yu1WaJbQDpl8SfVv/hhdieJjXVoG/bY6mm7Qyp5x">
-        </script>
-    </environment>
-    <script src="~/js/world.js" asp-append-version="true"></script>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Region</th>
+            <th>DocumentType</th>
+            <th>Datum</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Items) {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Region</td>
+            <td>@item.DocumentType</td>
+            <td>@item.Datum</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
 }
+    </tbody>
+</table>

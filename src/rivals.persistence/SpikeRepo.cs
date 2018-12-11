@@ -14,13 +14,37 @@ namespace rivals.persistence
     {
         public async Task<IEnumerable<SpikeItem>> GetSpikeItems()
         {
-            return await GetMultipleSpikeItems();
+            List<SpikeItem> results = null;
+            try
+            {
+                var collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseID, CollectionID);
+                var documentQuery = Client.CreateDocumentQuery<SpikeItem>(collectionUri,
+                    $"SELECT * FROM StrivingRivalsCollection c",
+                    new FeedOptions()
+                    {
+                        EnableCrossPartitionQuery = true,
+                        MaxItemCount = 100,
+                    }).AsDocumentQuery<SpikeItem>();
+                while (documentQuery.HasMoreResults)
+                {
+                    results = new List<SpikeItem>();
+                    foreach (var spikeItem in await documentQuery.ExecuteNextAsync<SpikeItem>())
+                    {
+                        results.Add(spikeItem);
+                    }
+                }
+            }
+            catch (DocumentClientException e)
+            {
+                throw;
+            }
+
+            return results;
         }
 
-        private async Task<IEnumerable<SpikeItem>> GetSingleSpikeItem()
+        public async Task<SpikeItem> GetSpikeItemById(string id)
         {
             SpikeItem result = null;
-            var id = "hh";
             try
             {
                 Document document = await Client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseID, CollectionID, id));
@@ -38,36 +62,84 @@ namespace rivals.persistence
                 }
             }
 
-            return new List<SpikeItem>() { result };
+            return result;
         }
 
-        private async Task<IEnumerable<SpikeItem>> GetMultipleSpikeItems()
+        public async Task<System.Boolean> InsertSpikeItem(SpikeItem item)
         {
-            List<SpikeItem> results = new List<SpikeItem>();
+            var inserted = false;
+
             try
             {
+                item.SetDefaultProperties();
+
                 var collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseID, CollectionID);
-                var documentQuery = Client.CreateDocumentQuery<SpikeItem>(collectionUri,
-                    $"SELECT * FROM StrivingRivalsCollection c WHERE c.id = 'First'",
-                    new FeedOptions()
-                    {
-                        EnableCrossPartitionQuery = true,
-                        MaxItemCount = 100,
-                    }).AsDocumentQuery<SpikeItem>();
-                while (documentQuery.HasMoreResults)
+                var documentResponse = await Client.CreateDocumentAsync(collectionUri, item);
+
+                if (documentResponse.StatusCode == System.Net.HttpStatusCode.Created)
                 {
-                    foreach (var spikeItem in await documentQuery.ExecuteNextAsync<SpikeItem>())
-                    {
-                        results.Add(spikeItem);
-                    }
+                    inserted = true;
                 }
             }
-            catch (Exception e)
+            catch (DocumentClientException e)
             {
-                var x = e.Message;
+
+                throw;
             }
 
-            return results;
+            return inserted;
+        }
+
+        public async Task<System.Boolean> DeleteSpikeItem(string id)
+        {
+            var deleted = false;
+
+            try
+            {
+
+                var documentToDeleteUri = UriFactory.CreateDocumentUri(DatabaseID, CollectionID, id);
+
+                ResourceResponse<Document> deletedDocumentResponse = await Client.DeleteDocumentAsync(
+                    documentToDeleteUri);
+
+                if (deletedDocumentResponse.StatusCode == System.Net.HttpStatusCode.NoContent)
+                {
+                    deleted = true;
+                }
+            }
+            catch (DocumentClientException e)
+            {
+                throw;
+            }
+
+            return deleted;
+        }
+
+        public async Task<System.Boolean> UpdateSpikeItem(SpikeItem item)
+        {
+            var updated = false;
+
+            try
+            {
+                item.SetDefaultProperties();
+
+                var documentToUpdateUri = UriFactory.CreateDocumentUri(DatabaseID, CollectionID, item.ID);
+
+                ResourceResponse<Document> updatedDocumentResponse = await Client.ReplaceDocumentAsync(
+                    documentToUpdateUri,
+                    item);
+
+                if (updatedDocumentResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    updated = true;
+                }
+            }
+            catch (DocumentClientException e)
+            {
+               throw;
+            }
+
+            return updated;
         }
 
         public SpikeRepo(IOptions<DatabaseSettings> dbOptions) : base(dbOptions)

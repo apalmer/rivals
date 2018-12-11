@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,14 +7,15 @@ namespace rivals.domain
 {
     public abstract class Persistable
     {
+        [JsonProperty(PropertyName = "id")]
         public String ID { get; set; }
-        public String EntityType { get; set; }
+        public String DocumentType { get; set; }
         public String Region { get; set; }
 
-        public Persistable()
+        public void SetDefaultProperties()
         {
-            EntityType = this.ToString();
-            Region = "East US";
+            DocumentType = this.ToString();
+            Region = "Central US";
         }
     }
 }

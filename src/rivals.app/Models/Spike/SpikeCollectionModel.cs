@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace rivals.app.Models
 {
-    public class SpikeModel
+    public class SpikeCollectionModel
     {
         public IEnumerable<SpikeItem> Items { get; set; }
     }
