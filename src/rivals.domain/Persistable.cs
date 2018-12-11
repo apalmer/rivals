@@ -9,7 +9,9 @@ namespace rivals.domain
     {
         [JsonProperty(PropertyName = "id")]
         public String ID { get; set; }
+        [JsonProperty(PropertyName = "documentType")]
         public String DocumentType { get; set; }
+        [JsonProperty(PropertyName = "region")]
         public String Region { get; set; }
 
         public void SetDefaultProperties()

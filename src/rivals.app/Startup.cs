@@ -16,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using rivals.app.Hubs;
 using rivals.persistence;
 using rivals.domain.Configuration;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
 
 namespace rivals.app
 {
@@ -37,14 +39,15 @@ namespace rivals.app
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+     
             var prodConnectionString = Configuration.GetValue<String>("StrivingRivalsDefaultConnection");
-            var devConnectionString = Configuration.GetValue<String>("StrivingRivals:DefaultConnection");
+            var devConnectionString = Configuration.GetValue<String>("DocumentDB:EndpointUrl");
 
             var defaultConnectionString = prodConnectionString ?? devConnectionString;
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(defaultConnectionString));
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
