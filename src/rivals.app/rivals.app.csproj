@@ -22,4 +22,8 @@
     <ProjectReference Include="..\rivals.persistence\rivals.persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ClientApp\" />
+  </ItemGroup>
+
 </Project>
