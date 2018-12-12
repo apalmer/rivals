@@ -1,14 +1,22 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Documents.Client;
+using Microsoft.EntityFrameworkCore;
+using rivals.app.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using rivals.app.Hubs;
 using rivals.domain.Configuration;
-using System;
-using VueCliMiddleware;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
 
 namespace rivals.app
 {
@@ -24,17 +32,7 @@ namespace rivals.app
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            services.AddSignalR();
-
-            // In production, the Vue files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "wwwroot/dist";
-            });
-
- 			services.Configure<CookiePolicyOptions>(options =>
+            services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
@@ -56,6 +54,10 @@ namespace rivals.app
                     dbOptions.CollectionId = Configuration.GetValue<String>("DocumentDB:CollectionID");
                 }
             );
+            
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSignalR();
 
             services.Configure<DatabaseSettings>(Configuration.GetSection("DocumentDB"));
             services.AddOptions();
@@ -71,19 +73,20 @@ namespace rivals.app
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
-			
-			app.UseCookiePolicy();
+            app.UseCookiePolicy();
 
             app.UseAuthentication();
-			
+
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chatHub");
@@ -95,17 +98,6 @@ namespace rivals.app
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-            });
-
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:8082/");
-                    spa.UseVueCli(npmScript: "serve", port: 8082);
-                }
             });
         }
     }

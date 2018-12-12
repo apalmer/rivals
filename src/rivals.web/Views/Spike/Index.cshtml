@@ -1,0 +1,37 @@
+﻿@model rivals.app.Models.SpikeCollectionModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Region</th>
+            <th>DocumentType</th>
+            <th>Datum</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Items) {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Region</td>
+            <td>@item.DocumentType</td>
+            <td>@item.Datum</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
