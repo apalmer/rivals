@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace rivals.domain
+namespace rivals.domain.Spike
 {
     public class SpikeItem : Persistable
     {

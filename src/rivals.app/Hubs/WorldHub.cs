@@ -16,25 +16,25 @@ namespace rivals.app.Hubs
         public override Task OnConnectedAsync()
          {
             UserHandler.ConnectedIds.Add(Context.ConnectionId);
-            UserConnected(Context.ConnectionId);
+            UserConnected(Context.User.Identity.Name, Context.ConnectionId);
             return base.OnConnectedAsync();
         }
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
             UserHandler.ConnectedIds.Remove(Context.ConnectionId);
-            UserDisconnected(Context.ConnectionId);
+            UserDisconnected(Context.User.Identity.Name, Context.ConnectionId);
             return base.OnDisconnectedAsync(exception);
         }
 
-        public Task UserConnected(string user)
+        public Task UserConnected(string userName, string connectionId)
         {
-            return Clients.All.SendAsync("UserConnected", user);
+            return Clients.All.SendAsync("UserConnected", userName, connectionId);
         }
 
-        public Task UserDisconnected(string user)
+        public Task UserDisconnected(string userName, string connectionId)
         {
-            return Clients.All.SendAsync("UserDisconnected", user);
+            return Clients.All.SendAsync("UserDisconnected", userName, connectionId);
         }
     }
 }

@@ -5,23 +5,26 @@
 
 Vue.component('user-status', {
     props: ['user'],
-    template: '<div class="user-status">{{user.connectionId}}</div>'
+    template: '<div class="user-status" :data-connection-id="user.connectionId">{{user.userName}}</div>'
 });
 
 var world = new Vue({
     el: '#world',
     data: {
+        sessionId: null,
         users: [
-            { connectionId: 'system' }
         ]
     },
+    beforeMount: function () {
+        this.sessionId = this.$el.attributes['data-session-id'].value;
+    },
     methods: {
-        userConnected: function (user) {
-            this.users.push({ connectionId: user});
+        userConnected: function (userName, connectionId) {
+            this.users.push({ userName: userName, connectionId: connectionId});
         },
-        userDisconnected: function (user) {
+        userDisconnected: function (userName, connectionId) {
             for (var i = 0; i < this.users.length; i++) {
-                if (this.users[i].connectionId === user) {
+                if (this.users[i].connectionId === connectionId) {
                     this.users.splice(i, 1);
                 }
             }
@@ -31,12 +34,12 @@ var world = new Vue({
 
 var worldConnection = new signalR.HubConnectionBuilder().withUrl("/worldHub").build();
 
-worldConnection.on("UserConnected", function (user) {
-    world.userConnected(user);
+worldConnection.on("UserConnected", function (userName, connectionId) {
+    world.userConnected(userName, connectionId);
 });
 
-worldConnection.on("UserDisconnected", function (user) {
-    world.userDisconnected(user);
+worldConnection.on("UserDisconnected", function (userName, connectionId) {
+    world.userDisconnected(userName, connectionId);
 });
 
 worldConnection.start().catch(function (err) {

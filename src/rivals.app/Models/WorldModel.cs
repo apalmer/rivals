@@ -7,5 +7,6 @@ namespace rivals.app.Models
 {
     public class WorldModel
     {
+        public String UserSessionID { get; set; }
     }
 }

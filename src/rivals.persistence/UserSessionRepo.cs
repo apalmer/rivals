@@ -1,7 +1,7 @@
 ﻿using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.Options;
-using rivals.domain.Spike;
+using rivals.domain.Session;
 using rivals.domain.Configuration;
 using System;
 using System.Collections.Generic;
@@ -10,27 +10,27 @@ using Microsoft.Azure.Documents.Linq;
 
 namespace rivals.persistence
 {
-    public class SpikeRepo : BaseRepo, ISpikeRepo
+    public class UserSessionRepo : BaseRepo
     {
-        public async Task<IEnumerable<SpikeItem>> GetSpikeItems()
+        public async Task<IEnumerable<UserSession>> GetUserSessions()
         {
-            List<SpikeItem> results = null;
+            List<UserSession> results = null;
             try
             {
                 var collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseID, CollectionID);
-                var documentQuery = Client.CreateDocumentQuery<SpikeItem>(collectionUri,
-                    $"SELECT * FROM StrivingRivalsCollection c WHERE c.documentType = 'rivals.domain.SpikeItem'",
+                var documentQuery = Client.CreateDocumentQuery<UserSession>(collectionUri,
+                    $"SELECT * FROM StrivingRivalsCollection c WHERE c.documentType = 'rivals.domain.Session.UserSession'",
                     new FeedOptions()
                     {
-                        EnableCrossPartitionQuery = true,
+                        EnableCrossPartitionQuery = false,
                         MaxItemCount = 100,
-                    }).AsDocumentQuery<SpikeItem>();
+                    }).AsDocumentQuery<UserSession>();
                 while (documentQuery.HasMoreResults)
                 {
-                    results = new List<SpikeItem>();
-                    foreach (var spikeItem in await documentQuery.ExecuteNextAsync<SpikeItem>())
+                    results = new List<UserSession>();
+                    foreach (var UserSession in await documentQuery.ExecuteNextAsync<UserSession>())
                     {
-                        results.Add(spikeItem);
+                        results.Add(UserSession);
                     }
                 }
             }
@@ -42,13 +42,13 @@ namespace rivals.persistence
             return results;
         }
 
-        public async Task<SpikeItem> GetSpikeItemById(string id)
+        public async Task<UserSession> GetUserSessionById(string id)
         {
-            SpikeItem result = null;
+            UserSession result = null;
             try
             {
                 Document document = await Client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseID, CollectionID, id));
-                result = (SpikeItem)(dynamic)document;
+                result = (UserSession)(dynamic)document;
             }
             catch (DocumentClientException e)
             {
@@ -65,7 +65,7 @@ namespace rivals.persistence
             return result;
         }
 
-        public async Task<System.Boolean> InsertSpikeItem(SpikeItem item)
+        public async Task<System.Boolean> InsertUserSession(UserSession item)
         {
             var inserted = false;
 
@@ -88,7 +88,7 @@ namespace rivals.persistence
             return inserted;
         }
 
-        public async Task<System.Boolean> DeleteSpikeItem(string id)
+        public async Task<System.Boolean> DeleteUserSession(string id)
         {
             var deleted = false;
 
@@ -113,7 +113,7 @@ namespace rivals.persistence
             return deleted;
         }
 
-        public async Task<System.Boolean> UpdateSpikeItem(SpikeItem item)
+        public async Task<System.Boolean> UpdateUserSession(UserSession item)
         {
             var updated = false;
 
@@ -138,7 +138,46 @@ namespace rivals.persistence
             return updated;
         }
 
-        public SpikeRepo(DocumentClient documentClient, IOptions<DatabaseSettings> dbOptions) : base(documentClient, dbOptions)
+        public async Task<System.Boolean> TerminateSessionsbyUserName(string userName)
+        {
+            var terminated = false;
+
+            try
+            {
+                var collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseID, CollectionID);
+                var documentQuery = Client.CreateDocumentQuery<UserSession>(collectionUri,
+                    $"SELECT * FROM StrivingRivalsCollection c WHERE c.documentType = 'rivals.domain.Session.UserSession' AND c.UserName = '{userName}'",
+                    new FeedOptions()
+                    {
+                        EnableCrossPartitionQuery = false,
+                        MaxItemCount = 100,
+                    }).AsDocumentQuery<UserSession>();
+
+                var itemsToDelete = new List<String>();
+                while (documentQuery.HasMoreResults)
+                {
+                    foreach (var UserSession in await documentQuery.ExecuteNextAsync<UserSession>())
+                    {
+                        itemsToDelete.Add(UserSession.ID);
+                    }
+                }
+
+                foreach (var itemToDelete in itemsToDelete)
+                {
+                    await DeleteUserSession(itemToDelete);
+                }
+
+                terminated = true;
+            }
+            catch (DocumentClientException e)
+            {
+                throw;
+            }
+
+            return terminated;
+        }
+
+        public UserSessionRepo(DocumentClient documentClient, IOptions<DatabaseSettings> dbOptions) : base(documentClient, dbOptions)
         {
         }
     }

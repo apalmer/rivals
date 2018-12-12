@@ -14,7 +14,6 @@ using rivals.app.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using rivals.app.Hubs;
-using rivals.persistence;
 using rivals.domain.Configuration;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
@@ -63,7 +62,9 @@ namespace rivals.app
             services.Configure<DatabaseSettings>(Configuration.GetSection("DocumentDB"));
             services.AddOptions();
 
-            services.AddTransient<ISpikeRepo, SpikeRepo>();
+            services.AddTransient<persistence.ISpikeRepo, persistence.SpikeRepo>();
+            services.AddTransient<persistence.UserSessionRepo>();
+            services.AddTransient<logic.Session.UserSessionManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

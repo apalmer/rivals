@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\rivals.domain\rivals.domain.csproj" />
+    <ProjectReference Include="..\rivals.logic\rivals.logic.csproj" />
     <ProjectReference Include="..\rivals.persistence\rivals.persistence.csproj" />
   </ItemGroup>
 

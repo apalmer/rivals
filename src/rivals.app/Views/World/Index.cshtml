@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Online</h2>
 
 <div>
-    <div id="world">
+    <div id="world" data-session-id="@Model.UserSessionID">
         <user-list v-bind:users="users">
         </user-list>
     </div>

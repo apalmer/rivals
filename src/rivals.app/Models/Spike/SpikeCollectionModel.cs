@@ -1,4 +1,4 @@
-﻿using rivals.domain;
+﻿using rivals.domain.Spike;
 using System;
 using System.Collections.Generic;
 using System.Linq;
