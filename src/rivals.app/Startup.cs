@@ -103,8 +103,8 @@ namespace rivals.app
 
                 if (env.IsDevelopment())
                 {
-                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:8082/");
-                    spa.UseVueCli(npmScript: "serve", port: 8082);
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:8082/");
+                    //spa.UseVueCli(npmScript: "serve", port: 8082);
                 }
             });
         }

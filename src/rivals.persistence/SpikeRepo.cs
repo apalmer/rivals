@@ -19,7 +19,7 @@ namespace rivals.persistence
             {
                 var collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseID, CollectionID);
                 var documentQuery = Client.CreateDocumentQuery<SpikeItem>(collectionUri,
-                    $"SELECT * FROM StrivingRivalsCollection c WHERE c.documentType = 'rivals.domain.SpikeItem'",
+                    $"SELECT * FROM StrivingRivalsCollection c WHERE c.documentType = 'rivals.domain.Spike.SpikeItem'",
                     new FeedOptions()
                     {
                         EnableCrossPartitionQuery = true,
