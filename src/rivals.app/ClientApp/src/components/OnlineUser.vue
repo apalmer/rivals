@@ -4,28 +4,26 @@
 </template>
 
 <script>
-  export default {
-    name: 'OnlineUser',
-    props: {
-      user: Object,
-      counter: 0
-    },
-    data: function () {
-      return {
-        index: 0
-      };
-    },
-    methods: {
-      clickUser: function (user) {
-        this.$root.$emit('challenge-user', user);
-      }
+export default {
+  name: 'OnlineUser',
+  props: {
+    user: Object
+  },
+  data: function () {
+    return {
     }
+  },
+  methods: {
+    clickUser: function (user) {
+      this.$root.$emit('challenge-user', user)
+    }
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .online-user:hover{
-  font-weight:bold 
+  font-weight:bold
 }
 </style>

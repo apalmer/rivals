@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <transition name="modal-fade">
     <div class="modal-backdrop">
       <div class="modal"
@@ -35,14 +35,14 @@
 </template>
 
 <script>
-  export default {
-    name: 'Modal',
-    methods: {
-      close() {
-        this.$emit('close-modal');
-      },
-    },
-  };
+export default {
+  name: 'Modal',
+  methods: {
+    close () {
+      this.$emit('close-modal')
+    }
+  }
+}
 </script>
 
 <style>
