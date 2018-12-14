@@ -22,7 +22,7 @@ namespace rivals.persistence
                     $"SELECT * FROM StrivingRivalsCollection c WHERE c.documentType = 'rivals.domain.Session.UserSession'",
                     new FeedOptions()
                     {
-                        EnableCrossPartitionQuery = false,
+                        EnableCrossPartitionQuery = true,
                         MaxItemCount = 100,
                     }).AsDocumentQuery<UserSession>();
                 while (documentQuery.HasMoreResults)
@@ -47,7 +47,11 @@ namespace rivals.persistence
             UserSession result = null;
             try
             {
-                Document document = await Client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseID, CollectionID, id));
+                Document document = await Client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseID, CollectionID, id),
+                    new RequestOptions()
+                    {
+                        PartitionKey = new PartitionKey(PartitionKey)
+                    });
                 result = (UserSession)(dynamic)document;
             }
             catch (DocumentClientException e)
@@ -72,7 +76,12 @@ namespace rivals.persistence
             try
             {
                 var collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseID, CollectionID);
-                var documentResponse = await Client.CreateDocumentAsync(collectionUri, item);
+                var documentResponse = await Client.CreateDocumentAsync(collectionUri, item//,
+                    //new RequestOptions()
+                    //{
+                    //    PartitionKey = new PartitionKey(PartitionKey)
+                    //}
+                );
 
                 if (documentResponse.StatusCode == System.Net.HttpStatusCode.Created)
                 {
@@ -98,7 +107,11 @@ namespace rivals.persistence
                 var documentToDeleteUri = UriFactory.CreateDocumentUri(DatabaseID, CollectionID, id);
 
                 ResourceResponse<Document> deletedDocumentResponse = await Client.DeleteDocumentAsync(
-                    documentToDeleteUri);
+                    documentToDeleteUri,
+                    new RequestOptions()
+                    {
+                        PartitionKey = new PartitionKey(PartitionKey)
+                    });
 
                 if (deletedDocumentResponse.StatusCode == System.Net.HttpStatusCode.NoContent)
                 {
@@ -123,7 +136,11 @@ namespace rivals.persistence
 
                 ResourceResponse<Document> updatedDocumentResponse = await Client.ReplaceDocumentAsync(
                     documentToUpdateUri,
-                    item);
+                    item,
+                    new RequestOptions()
+                    {
+                        PartitionKey = new PartitionKey(PartitionKey)
+                    });
 
                 if (updatedDocumentResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -149,7 +166,7 @@ namespace rivals.persistence
                     $"SELECT * FROM StrivingRivalsCollection c WHERE c.documentType = 'rivals.domain.Session.UserSession' AND c.UserName = '{userName}'",
                     new FeedOptions()
                     {
-                        EnableCrossPartitionQuery = false,
+                        EnableCrossPartitionQuery = true,
                         MaxItemCount = 100,
                     }).AsDocumentQuery<UserSession>();
 
@@ -177,7 +194,7 @@ namespace rivals.persistence
             return terminated;
         }
 
-        public UserSessionRepo(DocumentClient documentClient, IOptions<DatabaseSettings> dbOptions) : base(documentClient, dbOptions)
+        public UserSessionRepo(IDocumentClient documentClient, IOptions<DatabaseSettings> dbOptions) : base(documentClient, dbOptions)
         {
         }
     }

@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rivals.logic", "rivals.logi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rivals.app", "rivals.app\rivals.app.csproj", "{A6310B01-2603-4110-9F5C-B5A2D2A620AA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Identity.DocumentDb", "AspNetCore.Identity.DocumentDb\AspNetCore.Identity.DocumentDb.csproj", "{447B9592-1E66-494A-BA67-6FC853126939}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A6310B01-2603-4110-9F5C-B5A2D2A620AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6310B01-2603-4110-9F5C-B5A2D2A620AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6310B01-2603-4110-9F5C-B5A2D2A620AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{447B9592-1E66-494A-BA67-6FC853126939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{447B9592-1E66-494A-BA67-6FC853126939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{447B9592-1E66-494A-BA67-6FC853126939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{447B9592-1E66-494A-BA67-6FC853126939}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,5 +8,6 @@ namespace rivals.domain.Configuration
     {
         public String DatabaseID { get; set; }
         public String CollectionID { get; set; }
+        public String PartitionKey { get; set; }
     }
 }

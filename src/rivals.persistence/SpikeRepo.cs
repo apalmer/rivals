@@ -47,7 +47,12 @@ namespace rivals.persistence
             SpikeItem result = null;
             try
             {
-                Document document = await Client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseID, CollectionID, id));
+                Document document = await Client.ReadDocumentAsync(
+                    UriFactory.CreateDocumentUri(DatabaseID, CollectionID, id),
+                    new RequestOptions() {
+                        PartitionKey = new PartitionKey(PartitionKey)
+                    }
+                );
                 result = (SpikeItem)(dynamic)document;
             }
             catch (DocumentClientException e)
@@ -98,7 +103,10 @@ namespace rivals.persistence
                 var documentToDeleteUri = UriFactory.CreateDocumentUri(DatabaseID, CollectionID, id);
 
                 ResourceResponse<Document> deletedDocumentResponse = await Client.DeleteDocumentAsync(
-                    documentToDeleteUri);
+                    documentToDeleteUri,
+                    new RequestOptions() {
+                        PartitionKey = new PartitionKey(PartitionKey)
+                    });
 
                 if (deletedDocumentResponse.StatusCode == System.Net.HttpStatusCode.NoContent)
                 {
@@ -123,7 +131,10 @@ namespace rivals.persistence
 
                 ResourceResponse<Document> updatedDocumentResponse = await Client.ReplaceDocumentAsync(
                     documentToUpdateUri,
-                    item);
+                    item,
+                    new RequestOptions() {
+                        PartitionKey = new PartitionKey(PartitionKey)
+                    });
 
                 if (updatedDocumentResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -138,7 +149,7 @@ namespace rivals.persistence
             return updated;
         }
 
-        public SpikeRepo(DocumentClient documentClient, IOptions<DatabaseSettings> dbOptions) : base(documentClient, dbOptions)
+        public SpikeRepo(IDocumentClient documentClient, IOptions<DatabaseSettings> dbOptions) : base(documentClient, dbOptions)
         {
         }
     }

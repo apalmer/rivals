@@ -1,4 +1,4 @@
-﻿@inject SignInManager<Microsoft.AspNetCore.Identity.DocumentDB.IdentityUser> SignInManager
+﻿@inject SignInManager<rivals.app.Identity.RivalsIdentityUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

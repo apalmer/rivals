@@ -15,14 +15,14 @@ namespace rivals.app.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<Microsoft.AspNetCore.Identity.DocumentDB.IdentityUser> _signInManager;
-        private readonly UserManager<Microsoft.AspNetCore.Identity.DocumentDB.IdentityUser> _userManager;
+        private readonly SignInManager<rivals.app.Identity.RivalsIdentityUser> _signInManager;
+        private readonly UserManager<rivals.app.Identity.RivalsIdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         //private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<Microsoft.AspNetCore.Identity.DocumentDB.IdentityUser> userManager,
-            SignInManager<Microsoft.AspNetCore.Identity.DocumentDB.IdentityUser> signInManager,
+            UserManager<rivals.app.Identity.RivalsIdentityUser> userManager,
+            SignInManager<rivals.app.Identity.RivalsIdentityUser> signInManager,
             ILogger<RegisterModel> logger
             //IEmailSender emailSender
             )
@@ -71,7 +71,7 @@ namespace rivals.app.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new Microsoft.AspNetCore.Identity.DocumentDB.IdentityUser { UserName = Input.UserName, Email = Input.Email };
+                var user = new rivals.app.Identity.RivalsIdentityUser { UserName = Input.UserName, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

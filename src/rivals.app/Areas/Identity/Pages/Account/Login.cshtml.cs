@@ -15,10 +15,10 @@ namespace rivals.app.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<Microsoft.AspNetCore.Identity.DocumentDB.IdentityUser> _signInManager;
+        private readonly SignInManager<rivals.app.Identity.RivalsIdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<Microsoft.AspNetCore.Identity.DocumentDB.IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<rivals.app.Identity.RivalsIdentityUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;

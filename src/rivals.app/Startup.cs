@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AspNetCore.Identity.DocumentDb;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using rivals.app.Hubs;
+using rivals.app.Identity;
 using rivals.domain.Configuration;
 using System;
 using VueCliMiddleware;
@@ -40,22 +43,20 @@ namespace rivals.app
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            
-            services.AddSingleton<DocumentClient>(new DocumentClient(
-                new Uri(Configuration.GetValue<String>("DocumentDB:EndpointURL")),
-                Configuration.GetValue<String>("DocumentDB:PassKey")
-                )
-            );
 
-            services.AddIdentityWithDocumentDBStores(
-                dbOptions =>
+            var documentDBClient = new DocumentClient(
+                new Uri(Configuration.GetValue<String>("DocumentDB:EndpointURL")),
+                Configuration.GetValue<String>("DocumentDB:AuthKey")
+                );
+
+            services.AddSingleton<IDocumentClient>(documentDBClient);
+
+            services.AddIdentity<RivalsIdentityUser, RivalsIdentityRole>()
+                .AddDocumentDbStores(options =>
                 {
-                    dbOptions.DocumentUrl = Configuration.GetValue<String>("DocumentDB:EndpointURL");
-                    dbOptions.DocumentKey = Configuration.GetValue<String>("DocumentDB:PassKey");
-                    dbOptions.DatabaseId = Configuration.GetValue<String>("DocumentDB:DatabaseID");
-                    dbOptions.CollectionId = Configuration.GetValue<String>("DocumentDB:CollectionID");
-                }
-            );
+                    options.Database = Configuration.GetValue<String>("DocumentDB:DatabaseID");
+                    options.UserStoreDocumentCollection = Configuration.GetValue<String>("DocumentDB:CollectionID");
+                });
 
             services.Configure<DatabaseSettings>(Configuration.GetSection("DocumentDB"));
             services.AddOptions();
