@@ -1,3 +1,9 @@
 module.exports = {
-  baseUrl: '/duel/'
+  baseUrl: '/app/',
+  outputDir: undefined,
+  assetsDir: undefined,
+  runtimeCompiler: undefined,
+  productionSourceMap: undefined,
+  parallel: undefined,
+  css: undefined
 }
