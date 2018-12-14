@@ -1,6 +1,6 @@
 module.exports = {
   baseUrl: '/app/',
-  outputDir: undefined,
+  outputDir: '../wwwroot/app',
   assetsDir: undefined,
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
