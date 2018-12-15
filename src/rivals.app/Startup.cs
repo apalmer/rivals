@@ -34,7 +34,7 @@ namespace rivals.app
             // In production, the Vue files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "wwwroot/dist";
+                configuration.RootPath = "wwwroot/app";
             });
 
  			services.Configure<CookiePolicyOptions>(options =>
