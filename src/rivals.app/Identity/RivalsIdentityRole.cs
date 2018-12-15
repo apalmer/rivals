@@ -1,4 +1,5 @@
 ﻿using AspNetCore.Identity.DocumentDb;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,5 +9,7 @@ namespace rivals.app.Identity
 {
     public class RivalsIdentityRole : DocumentDbIdentityRole
     {
+        [JsonProperty(PropertyName = "region")]
+        public String Region { get { return "Central US"; } }
     }
 }

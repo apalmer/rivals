@@ -41,7 +41,8 @@ export default {
     closeModal () {
       this.isModalVisible = false
     },
-    declineChallenge () {
+    declineChallenge() {
+      this.$root.$emit('challenge-declined', this.challengerUser)
       this.closeModal()
     },
     acceptChallenge () {

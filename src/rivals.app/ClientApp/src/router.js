@@ -14,7 +14,7 @@ export default new Router({
       component: World
     },
     {
-      path: '/duel',
+      path: '/duel/:duelId',
       name: 'duel',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route

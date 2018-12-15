@@ -64,6 +64,7 @@ namespace rivals.app
             services.AddTransient<persistence.ISpikeRepo, persistence.SpikeRepo>();
             services.AddTransient<persistence.UserSessionRepo>();
             services.AddTransient<logic.Session.UserSessionManager>();
+            services.AddTransient<logic.Game.DuelManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

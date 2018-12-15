@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\assets\" />
+    <Folder Include="Models\Hubs\" />
   </ItemGroup>
 
   <ItemGroup>
