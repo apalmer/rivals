@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["duel"],{b6fe:function(e,t,n){"use strict";n.r(t);var l=function(){var e=this,t=e.$createElement;e._self._c;return e._m(0)},s=[function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("div",{staticClass:"about"},[n("h2",[e._v("This is a duel between")]),n("h1",[e._v("RIVALS!!!")])])}],u=n("2877"),i={},a=Object(u["a"])(i,l,s,!1,null,null,null);a.options.__file="Duel.vue";t["default"]=a.exports}}]);
+//# sourceMappingURL=duel.ed91eaee.js.map
