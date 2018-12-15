@@ -130,7 +130,7 @@ namespace AspNetCore.Identity.DocumentDb.Stores
                 throw new ArgumentNullException(nameof(userId));
             }
 
-            TUser foundUser = await documentClient.ReadDocumentAsync<TUser>(GenerateDocumentUri(userId));
+            TUser foundUser = await documentClient.ReadDocumentAsync<TUser>(GenerateDocumentUri(userId),new RequestOptions { PartitionKey = new PartitionKey("Central US") });
 
             return foundUser;
         }
