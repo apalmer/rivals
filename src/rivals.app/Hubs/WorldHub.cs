@@ -82,26 +82,36 @@ namespace rivals.app.Hubs
             return Clients.Client(challenged.ConnectionID).SendAsync("ChallengeIssued", challenger);
         }
 
-        public async void AcceptChallenge(Player challenger)
+        public async Task AcceptChallenge(Player challenger)
         {
             var challenged = new Player(Context.User.Identity.Name, Context.ConnectionId);
-            StartDuel(challenger, challenged);
+            await StartDuel(challenger, challenged);
         }
 
-        public async void DeclineChallenge(Player challenger)
+        public async Task DeclineChallenge(Player challenger)
         {
             var challenged = new Player(Context.User.Identity.Name, Context.ConnectionId);
         }
 
-        private async void StartDuel(Player challenger, Player challenged)
+        private async Task<Duel> StartDuel(Player challenger, Player challenged)
         {
-            var duel = await _duelManager.RegisterDuel(challenger, challenged);
+            try
+            {
+                var duel = await _duelManager.RegisterDuel(challenger, challenged);
 
-            var duelGroupName = $"DUEL-{duel.ID}";
-            await Groups.AddToGroupAsync(challenger.ConnectionID, duelGroupName);
-            await Groups.AddToGroupAsync(challenged.ConnectionID, duelGroupName);
+                var duelGroupName = $"DUEL-{duel.ID}";
+                
+                await Groups.AddToGroupAsync(challenger.ConnectionID, duelGroupName);
+                await Groups.AddToGroupAsync(challenged.ConnectionID, duelGroupName);
 
-            await Clients.Groups(duelGroupName).SendAsync("StartDuel", duel);
+                await Clients.Groups(duelGroupName).SendAsync("StartDuel", duel);
+
+                return duel;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         public WorldHub(logic.Game.DuelManager duelManager)

@@ -23,7 +23,7 @@ export default {
   },
   data: function () {
     return {
-      users: [{userName:"system",connectionId:"12345"}]
+      users: []
     }
   },
   methods: {
@@ -40,7 +40,7 @@ export default {
       this.$root.$emit('challenge-issued', user)
     },
     startDuel: function (duel) {
-      this.$router.push({ name: 'duel', params: { duelId: duel.duelId } });
+      this.$router.push({ name: 'duel', params: { duelId: duel.id } });
     },
     userConnected: function (user) {
       var found = false;

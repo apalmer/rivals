@@ -9,7 +9,7 @@ namespace rivals.logic.Game
 {
     public class DuelManager
     {
-        private DuelRepo _duelRepo;
+        private IRepo<Duel> _duelRepo;
         public async Task<Duel> RegisterDuel(Player challenger, Player challenged)
         {
             var duel = new Duel(challenger, challenged);
@@ -17,7 +17,7 @@ namespace rivals.logic.Game
             return inserted ? duel: null;
         }
 
-        public DuelManager(DuelRepo duelRepo)
+        public DuelManager(IRepo<Duel> duelRepo)
         {
             _duelRepo = duelRepo;
         }
