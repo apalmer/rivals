@@ -7,7 +7,7 @@ namespace rivals.logic.Session
 {
     public class UserSessionManager
     {
-        private UserSessionRepo _userSessionRepo;
+        private IUserSessionRepo _userSessionRepo;
 
         public async Task<UserSession> StartSession(String userName, String category)
         {
@@ -22,7 +22,7 @@ namespace rivals.logic.Session
             var created = false;
             if (cleaned)
             {
-                created = await _userSessionRepo.InsertUserSession(session);
+                created = await _userSessionRepo.Insert(session);
             }
 
             if (created)
@@ -35,7 +35,7 @@ namespace rivals.logic.Session
             }
         }
 
-        public UserSessionManager(UserSessionRepo userSessionRepo)
+        public UserSessionManager(IUserSessionRepo userSessionRepo)
         {
             _userSessionRepo = userSessionRepo;
         }

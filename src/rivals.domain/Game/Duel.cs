@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 
 namespace rivals.domain.Game
 {
-    public class Duel
+    public class Duel : Persistable
     {
-        [JsonProperty(PropertyName = "duelId")]
-        public String DuelID { get; set; }
-
         private Player _challenger;
         private Player _challenged;
 
         public Duel(Player challenger, Player challenged)
         {
-            DuelID = Guid.NewGuid().ToString();
+            ID = Guid.NewGuid().ToString();
             _challenger = challenger;
             _challenged = challenged;
+        }
+
+        public Duel()
+        {
         }
     }
 }

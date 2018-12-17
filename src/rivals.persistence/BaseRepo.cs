@@ -13,7 +13,6 @@ namespace rivals.persistence
         protected IDocumentClient Client { get; set; }
         protected String DatabaseID { get; set; }
         protected String CollectionID { get; set; }
-
         protected String PartitionKey { get; set; }
 
         public BaseRepo(IDocumentClient documentClient, IOptions<DatabaseSettings> dbOptions)

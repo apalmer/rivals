@@ -97,7 +97,7 @@ namespace rivals.app.Hubs
         {
             var duel = await _duelManager.RegisterDuel(challenger, challenged);
 
-            var duelGroupName = $"DUEL-{duel.DuelID}";
+            var duelGroupName = $"DUEL-{duel.ID}";
             await Groups.AddToGroupAsync(challenger.ConnectionID, duelGroupName);
             await Groups.AddToGroupAsync(challenged.ConnectionID, duelGroupName);
 

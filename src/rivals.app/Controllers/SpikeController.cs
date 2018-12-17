@@ -11,9 +11,9 @@ namespace rivals.app.Controllers
 {
     public class SpikeController : Controller
     {
-        private ISpikeRepo Repository { get; set; }
+        private IRepo<domain.Spike.SpikeItem> Repository { get; set; }
 
-        public SpikeController(ISpikeRepo repo)
+        public SpikeController(IRepo<domain.Spike.SpikeItem> repo)
         {
             Repository = repo;
         }
@@ -21,7 +21,7 @@ namespace rivals.app.Controllers
         public async Task<IActionResult> Index()
         {
             var model = new SpikeCollectionModel();
-            model.Items = await Repository.GetSpikeItems();
+            model.Items = await Repository.GetAll();
             return View(model);
         }
 
@@ -29,7 +29,7 @@ namespace rivals.app.Controllers
         public async Task<IActionResult> Details(string id)
         {
             var model = new SpikeModel();
-            model.Item = await Repository.GetSpikeItemById(id);
+            model.Item = await Repository.GetById(id);
             return View(model);
         }
 
@@ -48,7 +48,7 @@ namespace rivals.app.Controllers
             try
             {
                 // TODO: Add insert logic here
-                await Repository.InsertSpikeItem(model.Item);
+                await Repository.Insert(model.Item);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -62,7 +62,7 @@ namespace rivals.app.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var model = new SpikeModel();
-            model.Item = await Repository.GetSpikeItemById(id);
+            model.Item = await Repository.GetById(id);
             return View(model);
         }
 
@@ -74,7 +74,7 @@ namespace rivals.app.Controllers
             try
             {
                 // TODO: Add update logic here
-                await Repository.UpdateSpikeItem(model.Item);
+                await Repository.Update(model.Item);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -88,7 +88,7 @@ namespace rivals.app.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var model = new SpikeModel();
-            model.Item = await Repository.GetSpikeItemById(id);
+            model.Item = await Repository.GetById(id);
 
             return View(model);
         }
@@ -101,7 +101,7 @@ namespace rivals.app.Controllers
             try
             {
                 // TODO: Add delete logic here
-                await Repository.DeleteSpikeItem(id);
+                await Repository.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

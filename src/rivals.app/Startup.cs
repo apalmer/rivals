@@ -61,8 +61,8 @@ namespace rivals.app
             services.Configure<DatabaseSettings>(Configuration.GetSection("DocumentDB"));
             services.AddOptions();
 
-            services.AddTransient<persistence.ISpikeRepo, persistence.SpikeRepo>();
-            services.AddTransient<persistence.UserSessionRepo>();
+            services.AddTransient<persistence.IRepo<domain.Spike.SpikeItem>, persistence.SpikeRepo>();
+            services.AddTransient<persistence.IUserSessionRepo, persistence.UserSessionRepo>();
             services.AddTransient<logic.Session.UserSessionManager>();
             services.AddTransient<logic.Game.DuelManager>();
         }

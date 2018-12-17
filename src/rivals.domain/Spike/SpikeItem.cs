@@ -6,9 +6,5 @@ namespace rivals.domain.Spike
     {
         public String Datum { get; set; }
 
-        public SpikeItem()
-        {
-
-        }
     }
 }

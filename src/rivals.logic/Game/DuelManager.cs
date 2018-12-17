@@ -1,4 +1,5 @@
 ﻿using rivals.domain.Game;
+using rivals.persistence;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +9,17 @@ namespace rivals.logic.Game
 {
     public class DuelManager
     {
+        private DuelRepo _duelRepo;
         public async Task<Duel> RegisterDuel(Player challenger, Player challenged)
         {
             var duel = new Duel(challenger, challenged);
-            return duel;
+            var inserted = await _duelRepo.Insert(duel);
+            return inserted ? duel: null;
+        }
+
+        public DuelManager(DuelRepo duelRepo)
+        {
+            _duelRepo = duelRepo;
         }
     }
 }
