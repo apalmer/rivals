@@ -1,12 +1,12 @@
 <template>
-  <div class="duel-range">
-    <h1>Duel Range</h1>
+  <div class="game-status">
+    <h1>Game Status</h1>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'duelRange',
+    name: 'gameStatus',
     props: {
     }
   }
@@ -15,6 +15,6 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   h1 {
-    color:burlywood;
+    color:bisque;
   }
 </style>

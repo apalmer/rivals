@@ -1,10 +1,6 @@
 <template>
-  <div class="player-hand">
-    <h1>Player Hand</h1>
-    <action-card></action-card>
-    <action-card></action-card>
-    <action-card></action-card>
-    <action-card></action-card>
+  <div class="player-action">
+    <h1>Player Action</h1>
     <action-card></action-card>
     <action-card></action-card>
   </div>
@@ -14,7 +10,7 @@
   import ActionCard from '@/components/ActionCard.vue'
 
   export default {
-    name: 'playerHand',
+    name: 'playerAction',
     components: {
       ActionCard
     },
@@ -26,6 +22,6 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   h1 {
-    color: darkred;
+    color: antiquewhite;
   }
 </style>
