@@ -8,8 +8,8 @@
         challenge {{challengedUser.userName}} !?!
       </template>
       <template slot="footer">
-        <button @click="cancelChallenge">Chicken</button>
-        <button @click="confirmChallenge">Confirm</button>
+        <button type="button" class="btn btn-primary" @click="cancelChallenge">Chicken</button>
+        <button type="button" class="btn btn-primary" @click="confirmChallenge">Confirm</button>
       </template>
     </modal>
   </div>

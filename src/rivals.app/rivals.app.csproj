@@ -29,7 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\assets\" />
+    <Content Include="ClientApp\src\game.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Models\Hubs\" />
   </ItemGroup>
 

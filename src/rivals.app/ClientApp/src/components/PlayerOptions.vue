@@ -1,22 +1,20 @@
 <template>
   <div class="player-options">
     <h1>Player Options</h1>
-    <player-action></player-action>
-    <player-action></player-action>
-    <player-action></player-action>
-    <player-action></player-action>
-    <player-action></player-action>
-    <player-action></player-action>
+    <player-actions></player-actions>
+    <game-actions></game-actions>
   </div>
 </template>
 
 <script>
-  import PlayerAction from '@/components/PlayerAction.vue'
+  import PlayerActions from '@/components/PlayerActions.vue'
+  import GameActions from '@/components/GameActions.vue'
 
   export default {
     name: 'playerOptions',
     components: {
-      PlayerAction
+      PlayerActions,
+      GameActions
     },
     props: {
     }

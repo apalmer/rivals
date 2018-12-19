@@ -1,9 +1,11 @@
 module.exports = {
   baseUrl: '/app/',
   outputDir: '../wwwroot/app',
-  assetsDir: undefined,
+  assetsDir: '/assets',
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
   parallel: undefined,
-  css: undefined
+  css: undefined,
+  configureWebpack: {
+  }
 }

@@ -8,8 +8,8 @@
         accept {{challengerUser.userName}}'s challenge !?!
       </template>
       <template slot="footer">
-        <button @click="declineChallenge">Chicken</button>
-        <button @click="acceptChallenge">Confirm</button>
+        <button type="button" class="btn btn-primary" @click="declineChallenge">Chicken</button>
+        <button type="button" class="btn btn-primary" @click="acceptChallenge">Confirm</button>
       </template>
     </modal>
   </div>

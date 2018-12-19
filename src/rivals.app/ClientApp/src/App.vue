@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">World</router-link> |
-      <router-link to="/duel">Duel</router-link>
-    </div>
     <router-view/>
   </div>
 </template>

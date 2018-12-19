@@ -14,7 +14,7 @@ namespace rivals.app.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                //return new RedirectResult("~/World");
+                return new RedirectResult("~/app/");
             }
 
             var model = new HomeModel();
