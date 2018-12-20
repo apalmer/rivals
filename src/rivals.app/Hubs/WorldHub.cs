@@ -95,23 +95,16 @@ namespace rivals.app.Hubs
 
         private async Task<Duel> StartDuel(Player challenger, Player challenged)
         {
-            try
-            {
-                var duel = await _duelManager.RegisterDuel(challenger, challenged);
+            var duel = await _duelManager.RegisterDuel(challenger, challenged);
 
-                var duelGroupName = $"DUEL-{duel.ID}";
+            var duelGroupName = $"DUEL-{duel.ID}";
                 
-                await Groups.AddToGroupAsync(challenger.ConnectionID, duelGroupName);
-                await Groups.AddToGroupAsync(challenged.ConnectionID, duelGroupName);
+            await Groups.AddToGroupAsync(challenger.ConnectionID, duelGroupName);
+            await Groups.AddToGroupAsync(challenged.ConnectionID, duelGroupName);
 
-                await Clients.Groups(duelGroupName).SendAsync("StartDuel", duel);
+            await Clients.Groups(duelGroupName).SendAsync("StartDuel", duel);
 
-                return duel;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            return duel;
         }
 
         public WorldHub(logic.Game.DuelManager duelManager)

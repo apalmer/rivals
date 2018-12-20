@@ -1,31 +1,48 @@
 <template>
-  <div class="player-actions">
-    <h1>Player Actions</h1>
-    <player-action></player-action>
-    <player-action></player-action>
-    <player-action></player-action>
-    <player-action></player-action>
-    <player-action></player-action>
-    <player-action></player-action>
+  <div class="player-actions col-md-12">
+    <span>Player Actions</span>
+    <div class="row">
+      <div class="player-action-container col-md-2">
+        <player-action></player-action>
+      </div>
+      <div class="player-action-container col-md-2">
+        <player-action></player-action>
+      </div>
+      <div class="player-action-container col-md-2">
+        <player-action></player-action>
+      </div>
+      <div class="player-action-container col-md-2">
+        <player-action></player-action>
+      </div>
+      <div class="player-action-container col-md-2">
+        <player-action></player-action>
+      </div>
+      <div class="player-action-container col-md-2">
+        <player-action></player-action>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  import PlayerAction from '@/components/PlayerAction.vue'
+import PlayerAction from '@/components/PlayerAction.vue'
 
-  export default {
-    name: 'playerActions',
-    components: {
-      PlayerAction
-    },
-    props: {
-    }
+export default {
+  name: 'playerActions',
+  components: {
+    PlayerAction
+  },
+  props: {
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  h1 {
-    color: antiquewhite;
+  .player-actions{
+
+  }
+  .player-action-container {
+    padding: 1rem;
   }
 </style>

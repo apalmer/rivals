@@ -1,26 +1,30 @@
 <template>
-  <div class="game-actions">
-    <h1>Game Actions</h1>
-    <game-action></game-action>
+  <div class="game-actions col-md-12">
+    <span>Game Actions</span>
+    <div class="game-action-container">
+      <game-action></game-action>
+    </div>
   </div>
 </template>
 
 <script>
-  import GameAction from '@/components/GameAction.vue'
+import GameAction from '@/components/GameAction.vue'
 
-  export default {
-    name: 'gameActions',
-    components: {
-      GameAction
-    },
-    props: {
-    }
+export default {
+  name: 'gameActions',
+  components: {
+    GameAction
+  },
+  props: {
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  h1 {
-    color: antiquewhite;
+  .game-actions{
+
+  }
+  .game-action-container {
   }
 </style>

@@ -1,20 +1,21 @@
 <template>
   <div class="duel-range">
-    <h1>Duel Range</h1>
+    <span>Duel Range</span>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'duelRange',
-    props: {
-    }
+export default {
+  name: 'duelRange',
+  props: {
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  h1 {
-    color:burlywood;
+  .duel-range {
+    background-color: darkgrey;
+    height: 5rem;
   }
 </style>
