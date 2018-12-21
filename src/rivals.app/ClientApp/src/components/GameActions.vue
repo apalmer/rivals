@@ -4,6 +4,9 @@
     <div class="game-action-container">
       <game-action></game-action>
     </div>
+    <div class="game-action-container">
+      <game-action></game-action>
+    </div>
   </div>
 </template>
 

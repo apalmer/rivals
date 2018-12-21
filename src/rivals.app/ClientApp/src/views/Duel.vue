@@ -4,13 +4,13 @@
 
       <div class="row">
         <div class="col-md-5 player-status-container player-status-container-left">
-          <player-status></player-status>
+          <player-status mode="left" v-bind:player="antagonist"></player-status>
         </div>
         <div class="col-md-2 game-status-container">
-          <game-status></game-status>
+          <game-status ></game-status>
         </div>
         <div class="col-md-5 player-status-container player-status-container-right">
-          <player-status></player-status>
+          <player-status mode="right" v-bind:player="protagonist"></player-status>
         </div>
       </div>
       <!-- /.row -->
@@ -60,6 +60,14 @@ export default {
   data: function () {
     return {
     }
+  },
+  computed: {
+    antagonist () {
+      return this.$store.state.players.antagonist
+    },
+    protagonist () {
+      return this.$store.state.players.protagonist
+    } 
   },
   methods: {
   },

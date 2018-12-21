@@ -1,13 +1,20 @@
 <template>
   <div class="game-status">
     <span>Game Status</span>
+    <h1>{{longerRoundTime}}</h1>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'gameStatus',
   props: {
+  },
+  computed: {
+    longerRoundTime() {
+      return this.$store.getters.longerRoundTime(40)
+    }
   }
 }
 </script>

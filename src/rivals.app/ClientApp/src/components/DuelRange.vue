@@ -1,6 +1,7 @@
 <template>
   <div class="duel-range">
     <span>Duel Range</span>
+    <div>{{ rangeDescription }}</div>
   </div>
 </template>
 
@@ -8,6 +9,11 @@
 export default {
   name: 'duelRange',
   props: {
+  },
+  computed: {
+    rangeDescription () {
+      return this.$store.getters['players/rangeDescription']
+    }
   }
 }
 </script>
