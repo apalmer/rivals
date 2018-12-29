@@ -4,6 +4,7 @@ import World from './views/World.vue'
 // eslint-disable-next-line
 import Duel from './views/Duel.vue'
 import Spike from './views/Spike.vue'
+import CardEditor from './views/CardEditor.vue'
 
 Vue.use(Router)
 
@@ -33,6 +34,15 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: Spike
+    },
+    {
+      path: '/card-editor',
+      name: 'cardEditor',
+      // component: Duel
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: CardEditor
     }
   ]
 })
