@@ -1,10 +1,10 @@
 <template>
   <div class="player-status">
     <span>Player Status</span>
-    <div>{{ player.playerName }}</div>
     <div class="max-health">
-      <div class="current-health" v-bind:style="{width: playerHealthPercent }">{{ player.health }}</div>
+      <div v-bind:class="[reverseLayout ? 'reverse-layout' : 'normal-layout',' current-health']" v-bind:style="{width: playerHealthPercent }"></div>
     </div>
+    <div v-bind:class="[reverseLayout ? 'reverse-nameplate-layout' : 'nameplate-layout', 'nameplate']">{{ player.playerName }}</div>
   </div>
 </template>
 
@@ -12,7 +12,7 @@
 export default {
   name: 'playerStatus',
     props: {
-      mode: String,
+      reverseLayout: Boolean,
       player: Object
     },
     data: function () {
@@ -28,11 +28,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .protagonist-layout{
-    float:left;
-  }
-  .antagonist-layout {
+  .reverse-layout{
     float: right;
+  }
+  .normal-layout {
+    float: left;
+  }
+  .reverse-nameplate-layout {
+    float: left;
+  }
+  .nameplate-layout {
+    float: right;
+  }
+  .name-plate {
+
   }
   .player-status {
     background-color: lightgrey;
@@ -40,9 +49,11 @@ export default {
   }
   .max-health {
     background-color : red;
-    width: 100%
+    width: 100%;
+    height: 2rem;
   }
   .current-health {
     background-color : gold;
+    height: 2rem;
   }
 </style>

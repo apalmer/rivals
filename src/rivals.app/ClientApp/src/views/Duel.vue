@@ -4,13 +4,13 @@
 
       <div class="row">
         <div class="col-md-5 player-status-container player-status-container-left">
-          <player-status mode="left" v-bind:player="antagonist"></player-status>
+          <player-status v-bind:reverseLayout="true" v-bind:player="antagonist"></player-status>
         </div>
         <div class="col-md-2 game-status-container">
           <game-status ></game-status>
         </div>
         <div class="col-md-5 player-status-container player-status-container-right">
-          <player-status mode="right" v-bind:player="protagonist"></player-status>
+          <player-status v-bind:player="protagonist"></player-status>
         </div>
       </div>
       <!-- /.row -->
