@@ -1,4 +1,4 @@
-﻿export default {
+export default {
   namespaced: true,
   state: {
     hello: 'hello'

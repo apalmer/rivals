@@ -67,7 +67,7 @@ export default {
     },
     protagonist () {
       return this.$store.state.players.protagonist
-    } 
+    }
   },
   methods: {
   },

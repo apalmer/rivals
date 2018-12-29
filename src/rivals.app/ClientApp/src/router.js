@@ -1,10 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import World from './views/World.vue'
-// eslint-disable-next-line
-import Duel from './views/Duel.vue'
-import Spike from './views/Spike.vue'
-import CardEditor from './views/CardEditor.vue'
 
 Vue.use(Router)
 
@@ -33,16 +29,16 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: Spike
+      component: () => import(/* webpackChunkName: "spike" */ './views/Spike.vue')
     },
     {
-      path: '/card-editor',
-      name: 'cardEditor',
+      path: '/editor',
+      name: 'editor',
       // component: Duel
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: CardEditor
+      component: () => import(/* webpackChunkName: "editor" */ './views/Editor.vue')
     }
   ]
 })

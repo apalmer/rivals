@@ -11,18 +11,18 @@
 <script>
 export default {
   name: 'playerStatus',
-    props: {
-      reverseLayout: Boolean,
-      player: Object
-    },
-    data: function () {
-      return {}
-    },
-    computed: {
-      playerHealthPercent () {
-        return this.player.health + '%'
-      }
+  props: {
+    reverseLayout: Boolean,
+    player: Object
+  },
+  data: function () {
+    return {}
+  },
+  computed: {
+    playerHealthPercent () {
+      return this.player.health + '%'
     }
+  }
 }
 </script>
 

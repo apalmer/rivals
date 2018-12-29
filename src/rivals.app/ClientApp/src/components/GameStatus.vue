@@ -6,13 +6,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
   name: 'gameStatus',
   props: {
   },
   computed: {
-    longerRoundTime() {
+    longerRoundTime () {
       return this.$store.getters.longerRoundTime(40)
     }
   }
