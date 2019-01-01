@@ -64,6 +64,8 @@ namespace rivals.app
             services.AddTransient<persistence.IRepo<domain.Spike.SpikeItem>, persistence.SpikeRepo>();
             services.AddTransient<persistence.IUserSessionRepo, persistence.UserSessionRepo>();
             services.AddTransient<logic.Session.UserSessionManager>();
+            services.AddTransient<persistence.ICardRepo, persistence.CardRepo>();
+            services.AddTransient<logic.Game.CardManager>();
             services.AddTransient<persistence.IRepo<domain.Game.Duel>, persistence.DuelRepo>();
             services.AddTransient<logic.Game.DuelManager>();
         }
