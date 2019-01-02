@@ -17,9 +17,22 @@ namespace rivals.logic.Game
             _cardRepo = cardRepo;
         }
 
-        public Task<Boolean> InsertCard(Card card)
+        public async Task<Boolean> InsertOrUpdateCard(Card card)
         {
-            return _cardRepo.Insert(card);
+            var upserted = false;
+            var existing = await GetCardByName(card.Name);
+
+            if(existing == null)
+            {
+                upserted = await _cardRepo.Insert(card);
+            }
+            else
+            {
+                card.ID = existing.ID;
+                upserted = await _cardRepo.Update(card);
+            }
+
+            return upserted;
         }
 
         public Task<Card> GetCardByName(String cardName)
@@ -27,5 +40,14 @@ namespace rivals.logic.Game
             return _cardRepo.GetByName(cardName);
         }
 
+        public async Task<IEnumerable<Card>> GetAllCards()
+        {
+            return await _cardRepo.GetAll();
+        }
+
+        public async Task<Boolean> DeleteCard(String id)
+        {
+            return await _cardRepo.Delete(id);
+        }
     }
 }

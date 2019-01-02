@@ -9,20 +9,21 @@ using System.Text;
 
 namespace rivals.tests
 {
-    public static class TestHelper
+    public class DependencyInjectionClassFixture : IDisposable
     {
-        public static IServiceProvider GetServices()
+        public DependencyInjectionClassFixture()
         {
-            var config = GetConfiguration();
-
-            var services = new ServiceCollection();
-
-            ConfigureDependencies(config, services);
-
-            var provider = services.BuildServiceProvider();
-
-            return provider;
+            Configuration = GetConfiguration();
+            ServiceProvider = GetServices(Configuration);
         }
+
+        public void Dispose()
+        {
+        }
+
+        public IConfiguration Configuration { get; set; }
+
+        public IServiceProvider ServiceProvider { get; set; }
 
         public static IConfiguration GetConfiguration()
         {
@@ -35,7 +36,20 @@ namespace rivals.tests
             return configRoot;
         }
 
-        private static void ConfigureDependencies(IConfiguration config, IServiceCollection services)
+        private IServiceProvider GetServices(IConfiguration configuration)
+        {
+            var config = GetConfiguration();
+
+            var services = new ServiceCollection();
+
+            ConfigureDependencies(config, services);
+
+            var provider = services.BuildServiceProvider();
+
+            return provider;
+        }
+
+        private void ConfigureDependencies(IConfiguration config, IServiceCollection services)
         {
             var documentDBClient = new DocumentClient(
                new Uri(config.GetValue<String>("DocumentDB:EndpointURL")),

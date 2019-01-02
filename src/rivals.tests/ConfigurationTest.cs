@@ -4,12 +4,12 @@ using Xunit;
 
 namespace rivals.tests
 {
-    public class ConfigurationTest
+    public class ConfigurationTest : IClassFixture<DependencyInjectionClassFixture>
     {
         [Fact]
         public void CanReadConfiguration()
         {
-            var configRoot = TestHelper.GetConfiguration();
+            var configRoot = DIFixture.Configuration;
 
             var jsonConfigData = configRoot.GetValue<String>("SampleConfigKey");
             var userSecretsConfigData = configRoot.GetValue<String>("SecretSampleConfigKey");
@@ -19,5 +19,13 @@ namespace rivals.tests
             Assert.Equal("Secret Config Value", userSecretsConfigData);
             Assert.Equal("Key VaultConfig Value", keyVaultConfigData);
         }
+
+        public ConfigurationTest(DependencyInjectionClassFixture fixture)
+        {
+            this.DIFixture = fixture;
+        }
+
+        DependencyInjectionClassFixture DIFixture { get; set; }
+
     }
 }

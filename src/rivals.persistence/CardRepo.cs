@@ -15,11 +15,12 @@ namespace rivals.persistence
     {
         public async Task<Card> GetByName(String cardName)
         {
-            Card result = new Card();
+            Card result = null;
+            var documentType = new Card().DocumentType;
             try
             {
                 var collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseID, CollectionID);
-                var query = $"SELECT * FROM StrivingRivalsCollection c WHERE c.documentType = '{result.DocumentType}' AND name = '{cardName}'";
+                var query = $"SELECT * FROM StrivingRivalsCollection c WHERE c.documentType = '{documentType}' AND c.name = '{cardName}'";
                 var feedOptions = new FeedOptions()
                 {
                     EnableCrossPartitionQuery = true,
