@@ -15,5 +15,8 @@ namespace rivals.domain.Game.Cards
 
         [JsonProperty(PropertyName = "defense")]
         public Defense Defense { get; set; }
+
+        [JsonProperty(PropertyName = "name")]
+        public String Name { get; set; }
     }
 }

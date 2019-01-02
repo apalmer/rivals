@@ -1,4 +1,5 @@
 ﻿using rivals.domain.Game;
+using rivals.domain.Game.Cards;
 using rivals.persistence;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,16 @@ namespace rivals.logic.Game
         {
             _cardRepo = cardRepo;
         }
+
+        public Task<Boolean> InsertCard(Card card)
+        {
+            return _cardRepo.Insert(card);
+        }
+
+        public Task<Card> GetCardByName(String cardName)
+        {
+            return _cardRepo.GetByName(cardName);
+        }
+
     }
 }

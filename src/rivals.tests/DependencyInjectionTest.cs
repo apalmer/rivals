@@ -12,6 +12,9 @@ namespace rivals.tests
         public void Test1()
         {
             var services = TestHelper.GetServices();
+            var dependency = services.GetService<logic.Game.DuelManager>();
+
+            Assert.NotNull(dependency);
         }
     }
 }

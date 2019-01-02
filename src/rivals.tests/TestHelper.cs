@@ -30,6 +30,7 @@ namespace rivals.tests
             var configRoot = builder
                 .AddJsonFile("appsettings.json", optional: true)
                 .AddUserSecrets("d7532917-963c-4279-9bec-a01090141133")
+                .AddAzureKeyVault("https://strivingrivalskeyvault.vault.azure.net")
                 .Build();
             return configRoot;
         }
@@ -50,6 +51,8 @@ namespace rivals.tests
             services.AddTransient<logic.Session.UserSessionManager>();
             services.AddTransient<persistence.IRepo<domain.Game.Duel>, persistence.DuelRepo>();
             services.AddTransient<logic.Game.DuelManager>();
+            services.AddTransient<persistence.ICardRepo, persistence.CardRepo>();
+            services.AddTransient<logic.Game.CardManager>();
         }
     }
 }
